@@ -135,11 +135,10 @@ fn write_output(content: &str, filename: Option<PathBuf>, logger: &Logger) {
             let stdout = io::stdout();
             let mut handle = stdout.lock();
 
-            if let Err(why) = handle
-                .write_all(bytes.as_slice()) {
-                    logger.error(&format!("Issue writing to stdout: {why}"));
-                    process::exit(EXIT_ERROR);
-                }
+            if let Err(why) = handle.write_all(bytes.as_slice()) {
+                logger.error(&format!("Issue writing to stdout: {why}"));
+                process::exit(EXIT_ERROR);
+            }
         }
         Some(path_buf) => {
             let mut file = match std::fs::File::create(&path_buf) {
